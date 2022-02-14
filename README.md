@@ -5,6 +5,24 @@ I got this idea when I tried to play to [Lost Ark](https://www.playlostark.com/f
 
 ## Quick start
 
+### Install dependencies
+- [discord.py](https://pypi.org/project/discord.py/)
+- [python-dotenv](https://pypi.org/project/python-dotenv/)
+```console
+$ pip install -r ./requirements.txt
+```
+
+### Configure
+
+In order to run the discord bot, you'll need a bot token.  
+Please check [this tutorial](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token) if you don't know how to get one.  
+Once you have it, create a `.env` file and write down your token like this:
+```
+TOKEN=your token here
+```
+
+### Run
+
 ```console
 $ python src/main.py
 ```
