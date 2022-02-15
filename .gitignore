@@ -1,1 +1,4 @@
 .env
+
+__pycache__
+dlas_cache.sqlite

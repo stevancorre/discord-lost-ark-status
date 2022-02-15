@@ -6,8 +6,11 @@ I got this idea when I tried to play to [Lost Ark](https://www.playlostark.com/f
 ## Quick start
 
 ### Install dependencies
+
 - [discord.py](https://pypi.org/project/discord.py/)
 - [python-dotenv](https://pypi.org/project/python-dotenv/)
+- [beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
+- [requests-cache](https://pypi.org/project/requests-cache/)
 ```console
 $ pip install -r ./requirements.txt
 ```
