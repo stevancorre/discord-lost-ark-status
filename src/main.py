@@ -1,13 +1,15 @@
 #!/usr/bin/python
 
-from dotenv import load_dotenv
-import discord
+from datetime import datetime
 
-from datetime import datetime  # lol
-import os
+from nextcord.ext.commands import Bot, Context, CommandNotFound
+from helper import try_getenv
 
-load_dotenv()
-client: discord.Client = discord.Client()
+
+TOKEN: str = try_getenv("TOKEN", str)
+PREFIX: str = try_getenv("PREFIX", str)
+
+client: Bot = Bot(command_prefix=PREFIX)
 
 
 @client.event
@@ -15,9 +17,26 @@ async def on_ready() -> None:
     log(f"Connected as {client.user}")
 
 
+@client.event
+async def on_command_error(_: Context, error):
+    if isinstance(error, CommandNotFound):
+        return
+
+    raise error
+
+
 def log(message: object) -> None:
     time: str = datetime.now().strftime("%H:%M:%S")
     print(f"[{time}] {message}")
 
 
-client.run(os.getenv("TOKEN"))
+def load_extension(extension: str):
+    try:
+        client.load_extension(extension + ".cog")
+        log(f"Successfully loaded `{extension}`")
+    except:
+        log(f"ERROR: Error loading `{extension}`")
+
+
+load_extension("modules.status")
+client.run(TOKEN)
