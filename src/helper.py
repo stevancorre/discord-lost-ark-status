@@ -1,12 +1,15 @@
 from typing import TypeVar, Callable
+
 import os
 import sys
+import time
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
 T = TypeVar("T")
+
 
 def try_getenv(key: str, func: Callable[[str], T]) -> T:
     value: str | None = os.getenv(key)
@@ -20,3 +23,7 @@ def try_getenv(key: str, func: Callable[[str], T]) -> T:
         print(
             f"ERROR: Wrong key value `{key}` in .env config, expected `{func.__name__}`", file=sys.stderr)
         exit(1)
+
+
+def get_ttl_hash(minutes: float):
+    return round(time.time() / (minutes * 60))

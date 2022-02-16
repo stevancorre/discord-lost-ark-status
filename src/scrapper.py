@@ -1,4 +1,5 @@
-from typing import List
+from typing import List, Optional
+from functools import lru_cache
 from dataclasses import dataclass
 
 from requests_cache import CachedSession, Response
@@ -34,7 +35,10 @@ class ScrapperResult:
     last_updated: str
 
 
-def get_servers_statuses() -> ScrapperResult:
+@lru_cache
+def get_servers_statuses(ttl_hash: Optional[int] = None) -> ScrapperResult:
+    del ttl_hash
+
     page: Response = session.get(
         "https://www.playlostark.com/en-gb/support/server-status")
     soup: BeautifulSoup = BeautifulSoup(page.content, features="html.parser")
@@ -87,5 +91,6 @@ def __extract_server_data(server_tag: Tag) -> Server:
 
 
 def __extract_last_updated_date(root: BeautifulSoup) -> str:
-    last_updated: str = root.find("div", class_="ags-ServerStatus-content-lastUpdated").text
+    last_updated: str = root.find(
+        "div", class_="ags-ServerStatus-content-lastUpdated").text
     return last_updated.strip().replace("&#39;", "'")
