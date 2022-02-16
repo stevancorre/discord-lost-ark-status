@@ -1,5 +1,7 @@
 from nextcord import Message, Interaction, SelectOption
 from nextcord.ui import View, Select
+from nextcord.errors import NotFound
+
 from modules.status.embeds import ServerStatusEmbed
 
 from scrapper import ScrapperResult
@@ -13,8 +15,12 @@ class RegionsDropdownView(View):
     async def on_timeout(self) -> None:
         for child in self.children:
             child.disabled = True
-        if self.message:
-            await self.message.edit(view=self)
+
+        try:
+            if self.message:
+                await self.message.edit(view=self)
+        except NotFound:
+            pass 
 
 
 class RegionsDropdown(Select):
