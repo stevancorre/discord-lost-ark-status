@@ -9,6 +9,8 @@ from modules.status.embeds import ServerStatusEmbed
 
 
 class Status(Cog):
+    """Contains status commands"""
+
     def __init__(self, bot: Bot):
         self.bot = bot
 
