@@ -8,7 +8,7 @@ COL_COUNT = 3
 
 STATUS_ICONS: Dict[str, str] = {
     "good": ":white_check_mark:",
-    "busy": ":x:",
+    "busy": ":clock1:",
     "full": ":no_entry:",
     "maintenance": ":construction:"
 }
