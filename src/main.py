@@ -34,8 +34,9 @@ def load_extension(extension: str):
     try:
         client.load_extension(extension + ".cog")
         log(f"Successfully loaded `{extension}`")
-    except:
+    except Exception as exception:
         log(f"ERROR: Error loading `{extension}`")
+        raise exception
 
 
 load_extension("modules.status")

@@ -13,12 +13,11 @@ class Status(Cog):
         self.bot = bot
 
     @command(name="status")
-    async def executeAsync(self, context: Context):
+    async def executeAsync(self, context: Context) -> None:
         ttl: int = get_ttl_hash(try_getenv("CACHE_LIFETIME", float))
         data: ScrapperResult = get_servers_statuses(ttl)
         view = RegionsDropdownView(data)
-
-        await context.reply(embed=ServerStatusEmbed(data.regions[0], data.last_updated), view=view)
+        view.message = await context.reply(embed=ServerStatusEmbed(data.regions[0], data.last_updated), view=view)
 
 
 def setup(bot: Bot):

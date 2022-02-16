@@ -7,13 +7,14 @@ from scrapper import ScrapperResult
 
 class RegionsDropdownView(View):
     def __init__(self, data: ScrapperResult):
-        super().__init__(timeout=60)
-
-        # Adds the dropdown to our view object.
+        super().__init__(timeout=30)
         self.add_item(RegionsDropdown(data))
 
-    async def interaction_check(self, interaction: Interaction) -> bool:
-        return await super().interaction_check(interaction)
+    async def on_timeout(self) -> None:
+        for child in self.children:
+            child.disabled = True
+        if self.message:
+            await self.message.edit(view=self)
 
 
 class RegionsDropdown(Select):
