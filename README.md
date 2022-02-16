@@ -29,3 +29,12 @@ TOKEN=your token here
 ```console
 $ python src/main.py
 ```
+
+## Documentation
+
+### Status
+
+Usage: `_status` <br>
+Description: Displays the current status of the different servers
+
+![Demo](https://i.imgur.com/uMXTeLb.gif)
