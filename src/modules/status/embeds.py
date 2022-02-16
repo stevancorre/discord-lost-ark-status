@@ -28,7 +28,7 @@ class ServerStatusEmbed(Embed):
         self.title = "Lost Ark servers status"
         self.url = "https://www.playlostark.com/en-gb/support/server-status"
 
-        self.set_thumbnail(url="https://i.imgur.com/1hD0RTI.jpg")
+        self.set_thumbnail(url="https://i.imgur.com/J42CmnO.jpg")
         self.set_footer(text=last_updated)
 
         self.__init_color(region.servers)
