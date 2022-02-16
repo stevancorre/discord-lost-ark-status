@@ -28,13 +28,20 @@ class ServerRegion:
     servers: List[Server]
 
 
-def get_server_regions() -> List[ServerRegion]:
+@dataclass
+class ScrapperResult:
+    regions: List[ServerRegion]
+    last_updated: str
+
+
+def get_servers_statuses() -> ScrapperResult:
     page: Response = session.get(
         "https://www.playlostark.com/en-gb/support/server-status")
     soup: BeautifulSoup = BeautifulSoup(page.content, features="html.parser")
 
     server_regions: List[ServerRegion] = __extract_server_regions(soup)
-    return server_regions
+    last_updated: str = __extract_last_updated_date(soup)
+    return ScrapperResult(server_regions, last_updated)
 
 
 def __extract_server_regions(root: BeautifulSoup) -> List[ServerRegion]:
@@ -77,3 +84,7 @@ def __extract_server_data(server_tag: Tag) -> Server:
     status: str = status_container.attrs.get("class")[1].split("--")[1]
 
     return Server(name, status)
+
+
+def __extract_last_updated_date(root: BeautifulSoup) -> str:
+    return root.find("div", class_="ags-ServerStatus-content-lastUpdated").text.strip().replace("&#39;", "'")
