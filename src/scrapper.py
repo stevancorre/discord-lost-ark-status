@@ -87,4 +87,5 @@ def __extract_server_data(server_tag: Tag) -> Server:
 
 
 def __extract_last_updated_date(root: BeautifulSoup) -> str:
-    return root.find("div", class_="ags-ServerStatus-content-lastUpdated").text.strip().replace("&#39;", "'")
+    last_updated: str = root.find("div", class_="ags-ServerStatus-content-lastUpdated").text
+    return last_updated.strip().replace("&#39;", "'")

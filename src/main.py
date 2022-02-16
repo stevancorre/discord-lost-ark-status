@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 from datetime import datetime
-
-from nextcord.ext.commands import Bot, Context, CommandNotFound
+from nextcord.ext.commands.bot import Bot, Context
+from nextcord.ext.commands.errors import CommandNotFound
 from helper import try_getenv
 
 

@@ -1,6 +1,4 @@
-from typing import List
-
-from nextcord import Interaction, SelectOption
+from nextcord import Message, Interaction, SelectOption
 from nextcord.ui import View, Select
 from modules.status.embeds import ServerStatusEmbed
 
@@ -21,7 +19,7 @@ class RegionsDropdownView(View):
 class RegionsDropdown(Select):
     def __init__(self, data: ScrapperResult):
         self.data = data
-        options = [SelectOption(label=region.name, value=i)
+        options = [SelectOption(label=region.name, value=str(i))
                    for i, region in enumerate(data.regions)]
         options[0].default = True
 
@@ -30,4 +28,8 @@ class RegionsDropdown(Select):
 
     async def callback(self, interaction: Interaction):
         index: int = int(self.values[0])
-        await interaction.message.edit(embed=ServerStatusEmbed(self.data.regions[index], self.data.last_updated))
+        message: Message | None = interaction.message
+        if message is None:
+            return
+
+        await message.edit(embed=ServerStatusEmbed(self.data.regions[index], self.data.last_updated))

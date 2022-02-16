@@ -1,5 +1,4 @@
-from this import d
-from typing import Dict, List, Union
+from typing import Dict, List
 
 from nextcord import Embed, Color
 
@@ -14,7 +13,7 @@ STATUS_ICONS: Dict[str, str] = {
     "maintenance": ":construction:"
 }
 
-STATUS_WEIGHTS: Dict[str, int] = {
+STATUS_WEIGHTS: Dict[str, float] = {
     "good": 1,
     "busy": 0.3,
     "full": 0,
@@ -43,14 +42,11 @@ class ServerStatusEmbed(Embed):
             [STATUS_WEIGHTS[server.status] for server in servers])
         server_ok_p = 1 - (server_ok_count / server_count)
 
-        if server_ok_p < 0.5:
-            # green -> orange
-            color: Color = Color(color_lerp(0x2ecc71, 0xe67e22, server_ok_p))
-        else:
-            # orange -> red
-            color: Color = Color(color_lerp(0xe67e22, 0xe74c3c, server_ok_p))
+        color: Color =  \
+            Color(color_lerp(0x2ecc71, 0xe67e22, server_ok_p)) if server_ok_p < 0.5 else \
+            Color(color_lerp(0xe67e22, 0xe74c3c, server_ok_p))
 
-        self.color = color
+        self.colour = color
 
     def __init_fields(self, region_name: str, servers: List[Server]):
         cols: List[str] = [""] * COL_COUNT
@@ -78,7 +74,7 @@ def format_server_with_status(server: Server) -> str:
         return f"{icon} ~~{server.name}~~"
 
 
-def color_lerp(a: Color, b: Color, t: float) -> int:
+def color_lerp(a: int, b: int, t: float) -> int:
     ra: int = (a >> 16) & 0xff
     ga: int = (a >> 8) & 0xff
     ba: int = a & 0xff
