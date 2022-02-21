@@ -3,6 +3,7 @@ from typing import TypeVar, Callable
 import os
 import sys
 import time
+from datetime import datetime
 
 from dotenv import load_dotenv
 
@@ -31,9 +32,15 @@ def try_getenv(key: str, func: Callable[[str], T]) -> T:
         exit(1)
 
 
-def get_ttl_hash(minutes: float):
+def get_ttl_hash(minutes: float) -> int:
     """Returns the TTL hash of now + N minutes
 
     Used for LRU cached functions"""
 
     return round(time.time() / (minutes * 60))
+
+def log(message: object) -> None:
+        """Prints a message to stdout with the current time"""
+
+        time: str = datetime.now().strftime("%H:%M:%S")
+        print(f"[{time}] {message}")

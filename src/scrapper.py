@@ -1,5 +1,4 @@
-from typing import List, Optional
-from functools import lru_cache
+from typing import List
 from dataclasses import dataclass
 
 from requests_cache import CachedSession, Response
@@ -29,6 +28,12 @@ class Server:
 
 
 @dataclass
+class ServerStatus:
+    id: int
+    name: str
+
+
+@dataclass
 class ServerRegion:
     """Describes a region"""
 
@@ -44,11 +49,8 @@ class ScrapperResult:
     last_updated: str
 
 
-@lru_cache
-def get_servers_statuses(ttl_hash: Optional[int] = None) -> ScrapperResult:
+def scrap_servers_statuses() -> ScrapperResult:
     """Get all server statuses"""
-
-    del ttl_hash
 
     # Fetch the page and parse it
     page: Response = session.get(

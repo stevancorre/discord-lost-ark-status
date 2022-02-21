@@ -2,3 +2,4 @@ nextcord==2.0.0a8
 python-dotenv==0.19.2
 beautifulsoup4==4.10.0
 requests-cache==0.9.1
+aiosqlite==0.17.0

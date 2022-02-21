@@ -2,3 +2,5 @@
 
 __pycache__
 dlas_cache.sqlite
+*.db
+*.db-journal

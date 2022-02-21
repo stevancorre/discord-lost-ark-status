@@ -48,4 +48,4 @@ class RegionsDropdown(Select):
         if message is None:
             return
 
-        await message.edit(embed=ServerStatusEmbed(self.data.regions[index], self.data.last_updated),view=self.view)
+        await message.edit(embed=ServerStatusEmbed(self.data.regions[index], self.data.last_updated), view=self.view)
